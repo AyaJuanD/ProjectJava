@@ -24,11 +24,20 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
     @Override
     public Usuario usuarioAModificar(Long id, Usuario usuarioModificar) {
-        return null;
+        Usuario usuarioBuscado = repositorioUsuario.findById(id).get();
+        usuarioBuscado.setDireccion(usuarioModificar.getDireccion());
+        repositorioUsuario.save(usuarioBuscado);
+        return repositorioUsuario.save(usuarioBuscado);
     }
 
     @Override
     public boolean eliminarUsuario(Long id) {
-        return false;
+
+        try {
+            repositorioUsuario.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
